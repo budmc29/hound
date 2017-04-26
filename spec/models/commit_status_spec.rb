@@ -70,7 +70,7 @@ describe CommitStatus do
   end
 
   describe "#set_config_error" do
-    it "sets the error status for GithubApi with default configuration URL" do
+    it "sets the error status for GithubApi" do
       github_api = stubbed_github_api(:create_error_status)
       repo_name = "houndci/hound"
       sha = "abc123"
@@ -82,36 +82,13 @@ describe CommitStatus do
         token: token,
       )
 
-      commit_status.set_config_error(message)
+      commit_status.set_config_error(message, configuration_url)
 
       expect(github_api).to have_received(:create_error_status).with(
         repo_name,
         sha,
         message,
         configuration_url,
-      )
-    end
-
-    it "sets the error status for GithubApi with specific URL" do
-      github_api = stubbed_github_api(:create_error_status)
-      repo_name = "houndci/hound"
-      sha = "abc123"
-      token = "token"
-      message = "invalid config"
-      commit_status = CommitStatus.new(
-        repo_name: repo_name,
-        sha: sha,
-        token: token,
-      )
-      custom_url = "http://example.com"
-
-      commit_status.set_config_error(message, custom_url)
-
-      expect(github_api).to have_received(:create_error_status).with(
-        repo_name,
-        sha,
-        message,
-        custom_url,
       )
     end
   end
