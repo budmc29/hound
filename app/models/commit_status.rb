@@ -19,8 +19,8 @@ class CommitStatus
     github.create_error_status(repo_name, sha, message)
   end
 
-  def set_config_error(message)
-    github.create_error_status(repo_name, sha, message, configuration_url)
+  def set_config_error(message, details_url = nil)
+    github.create_error_status(repo_name, sha, message, details_url || configuration_url)
   end
 
   def set_internal_error
