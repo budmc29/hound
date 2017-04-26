@@ -223,6 +223,7 @@ describe BuildRunner do
           pull_request_number: payload.pull_request_number,
           commit_sha: payload.head_sha,
           linter_name: "somelinter",
+          details_url: config_url,
         )
       end
     end

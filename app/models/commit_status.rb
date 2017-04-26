@@ -19,8 +19,8 @@ class CommitStatus
     github.create_error_status(repo_name, sha, message)
   end
 
-  def set_config_error(message, details_url = nil)
-    github.create_error_status(repo_name, sha, message, details_url)
+  def set_config_error(message)
+    github.create_error_status(repo_name, sha, message, configuration_url)
   end
 
   def set_internal_error
@@ -34,5 +34,9 @@ class CommitStatus
 
   def github
     @github ||= GithubApi.new(token)
+  end
+
+  def configuration_url
+    Rails.application.routes.url_helpers.configuration_url(host: Hound::HOST)
   end
 end
